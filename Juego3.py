@@ -90,6 +90,18 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+def mas_listos(ghost, pacman):
+    if abs(pacman.x - ghost.x) > abs(pacman.y - ghost.y):
+        if pacman.x > ghost.x:
+            return vector(5, 0)  # Derecha
+        else:
+            return vector(-5, 0)  # Izquierda
+    else:
+        if pacman.y > ghost.y:
+            return vector(0, 5)  # Arriba 
+        else:
+            return vector(0, -5) #Abajo
+
 def move():
     "Move pacman and all ghosts."
     writer.undo()
@@ -117,15 +129,21 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            new_direction = mas_listos(point, pacman)
+            if valid(point + new_direction):
+                course.x = new_direction.x
+                course.y = new_direction.y
+             # Si no es válido, mantener las opciones originales para evitar bloqueos
+            else:
+                options = [
+                    vector(5, 0),
+                    vector(-5, 0),
+                    vector(0, 5),
+                    vector(0, -5),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
 
         up()
         goto(point.x + 10, point.y + 10)
