@@ -90,6 +90,7 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
+#Funcion para que los enemigos sean mas inteligentes
 def mas_listos(ghost, pacman):
     if abs(pacman.x - ghost.x) > abs(pacman.y - ghost.y):
         if pacman.x > ghost.x:
