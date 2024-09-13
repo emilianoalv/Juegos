@@ -11,8 +11,8 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        speed.x = (x + 200) / 15 #Cambiar la velocidad de los proyectiles en x
+        speed.y = (y + 200) / 15 #Cambiar la velocidad de los proyectiles en y
 
 def inside(xy):
     "Return True if xy within screen."
@@ -40,7 +40,7 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -= 0.5
+        target.x -= 1 #Mover objetivos mas rapido
 
     if inside(ball):
         speed.y -= 0.35
@@ -51,15 +51,17 @@ def move():
 
     for target in dupe:
         if abs(target - ball) > 13:
+            if target.x < -200:
+                target.x = 200  #Reposicionar en el borde derecho
+                target.y = randrange(-150, 150)  #Se asigna una coordenada y aleatoria
             targets.append(target)
 
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
-
     ontimer(move, 50)
+
+
+    #Se borra el código para que no acabe el juego
 
 setup(420, 420, 370, 0)
 hideturtle()
