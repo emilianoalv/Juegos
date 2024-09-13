@@ -26,7 +26,7 @@ def mover_comida():
     mover_direccion = choice([vector(10, 0), vector(-10, 0), vector(0, 10), vector(0, -10)])  # Movimiento al azar
     posicion_nueva = food + mover_direccion
     
-    if inside(posicion_nueva):  # Verifica que la comida está dentro de los límites
+    if inside(posicion_nueva):  # Verifica que la comida está dentro de los límites del juego
         food.move(mover_direccion)
 
 def move():
